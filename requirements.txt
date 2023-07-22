@@ -1,5 +1,7 @@
+pip
+setuptools
+importlib
 streamlit
 opencv-python
 numpy
 Pillow
-importlib
