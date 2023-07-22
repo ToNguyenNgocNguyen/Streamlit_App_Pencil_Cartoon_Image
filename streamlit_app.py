@@ -7,29 +7,12 @@ import cv2 # computer vision
 
 
 def convertto_cartoon(inp_img):
-	numDownSamples = 2
-	numBilateralFilters = 50
-
-	img_color = inp_img
-	for _ in range(numDownSamples):
-		img_color = cv2.pyrDown(img_color)
-	for _ in range(numBilateralFilters):
-		img_color = cv2.bilateralFilter(img_color, 9, 9, 7)
-	for _ in range(numDownSamples):
-		img_color = cv2.pyrUp(img_color)
-
-	img_gray = cv2.cvtColor(inp_img, cv2.COLOR_RGB2GRAY)
-	img_blur = cv2.medianBlur(img_gray, 3)
-	img_edge = cv2.adaptiveThreshold(img_blur, 255,
-          cv2.ADAPTIVE_THRESH_MEAN_C,
-          cv2.THRESH_BINARY, 9, 2)
-	
-	(x,y,z) = img_color.shape
-	img_edge = cv2.resize(img_edge,(y,x))
-	img_edge = cv2.cvtColor(img_edge, cv2.COLOR_GRAY2RGB)
-	cartoon = cv2.bitwise_and(img_color, img_edge)
+	grayimg = cv2.cvtColor(inp_img, cv2.COLOR_BGR2GRAY)
+	grayimg = cv2.medianBlur(grayimg, 5)
+	edges = cv2.adaptiveThreshold(grayimg, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 5, 5)
+	color = cv2.bilateralFilter(inp_img, 9, 250, 250)
+	cartoon = cv2.bitwise_and(color, color, mask=edges)
 	return(cartoon)
-
 
 def pencilsketch(inp_img):
 	grey_img = cv2.cvtColor(inp_img, cv2.COLOR_RGB2GRAY)
