@@ -58,7 +58,7 @@ def main():
 
 			# two columns to display the original image and the
 			# image after applying water color sketching effect
-			col1, _,  col2 = st.columns(3, gap='large')
+			col1, _, col2 = st.columns(3, gap='large')
 			with col1:
 				st.header("Original Image")
 				st.image(load_an_image(image_file), width=500)
@@ -85,7 +85,7 @@ def main():
 			# two columns to display the original image
 			# and the image after applying
 			# pencil sketching effect
-			col1, col2 = st.columns(2)
+			col1, _, col2 = st.columns(3, gap='large')
 			with col1:
 				st.header("Original Image")
 				st.image(load_an_image(image_file), width=500)
